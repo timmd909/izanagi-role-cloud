@@ -1,0 +1,5 @@
+- name: Copy occ helper script
+  template:
+    src: usr/local/bin/occ.j2
+    dest: /usr/local/bin/occ
+    mode: '755'
