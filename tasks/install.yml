@@ -1,5 +1,41 @@
+
+- name: Install necessary packages
+  apt:
+    name:
+      - bzip2
+      - coreutils
+      - curl
+      - inetutils-ping
+      - jq
+      - php-imap
+      - php-intl
+      - php-ldap
+      - php-redis
+      - php-smbclient
+      - php-ssh2
+      - php-zip
+      - redis-server
+      - rsync
+      - smbclient
+      - ssh
+    state: latest
+
 - name: Copy occ helper script
   template:
     src: usr/local/bin/occ.j2
     dest: /usr/local/bin/occ
     mode: '755'
+
+- name: Apache site helper script
+  template:
+    src: etc/apache2/sites-available/owncloud.conf.j2
+    dest: /etc/apache2/sites-available/owncloud.conf
+
+- name: Disable default site
+  shell: a2dissite default
+
+- name: Enable owncloud site
+  shell: a2ensite owncloud
+
+- name: "Restart Apache"
+  service: state=restarted name=apache2
