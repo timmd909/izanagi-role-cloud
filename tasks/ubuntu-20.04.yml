@@ -8,9 +8,3 @@
   apt_repository:
     repo: "deb http://download.owncloud.org/download/repositories/production/Ubuntu_20.10/ /"
     state: present
-
-- name: Install owncloud
-  apt:
-    name: owncloud-complete-files
-    update_cache: yes
-    state: latest

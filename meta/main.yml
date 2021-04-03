@@ -1,5 +1,6 @@
 ---
 
 dependencies:
-  - role: php
+  - role: web-server
   - role: sql-server
+  - role: php
