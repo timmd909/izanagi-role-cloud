@@ -8,3 +8,6 @@ owncloud_admin_user: admin
 owncloud_admin_pass: ''
 
 owncloud_trusted_domains: []
+# In the form of:
+#  - { id: 2, hostname: 'foo.example.com' }
+#  - { id: 3, hostname: 'bar.example.com' }
