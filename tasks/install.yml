@@ -17,3 +17,32 @@
     --admin-user "{{ owncloud_admin_user }}"
     --admin-pass "{{ owncloud_admin_pass }}"
   when: occ_already_installed.stdout == '1'
+
+- name: Configure trusted domains
+  shell: occ config:system:set trusted_domains 1 --value="`hostname -I | cut -d ' ' -f1`"
+  when: occ_already_installed.stdout == '1'
+
+- name: Enable cron job mode
+  shell: occ background:cron
+
+- name: Install cronjob
+  lineinfile:
+    path: /var/spool/cron/crontabs/www-data
+    line: '*/15  *  *  *  * /var/www/owncloud/occ system:cron'
+    create: yes
+    state: present
+    mode: 0600
+    owner: www-data
+    group: crontab
+
+- name: Configure Caching and File Locking
+  shell: "{{ item }}"
+  with_items:
+    - occ config:system:set memcache.local --value '\OC\Memcache\APCu'
+    - occ config:system:set memcache.locking --value '\OC\Memcache\Redis'
+    - "occ config:system:set redis --value '{\"host\": \"127.0.0.1\", \"port\": \"6379\"}' --type json"
+
+- name: Configure log rotation
+  template:
+    src: etc/logrotate.d/owncloud.j2
+    dest: /etc/logrotate.d/owncloud
