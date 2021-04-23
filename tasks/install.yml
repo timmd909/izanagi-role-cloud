@@ -28,7 +28,7 @@
 - name: Install cronjob
   lineinfile:
     path: /var/spool/cron/crontabs/www-data
-    line: '*/15  *  *  *  * /var/www/owncloud/occ system:cron'
+    line: '*/15  *  *  *  * {{ owncloud_document_root }}/occ system:cron'
     create: yes
     state: present
     mode: 0600
@@ -46,3 +46,10 @@
   template:
     src: etc/logrotate.d/owncloud.j2
     dest: /etc/logrotate.d/owncloud
+
+- name: Double check permissions are proper
+  file:
+    path: "{{ owncloud_document_root }}"
+    recurse: yes
+    owner: www-data
+    group: www-data
