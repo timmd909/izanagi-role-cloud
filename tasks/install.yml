@@ -19,8 +19,8 @@
   when: occ_already_installed.stdout == '1'
 
 - name: Configure trusted domains
-  shell: occ config:system:set trusted_domains 1 --value="`hostname -I | cut -d ' ' -f1`"
-  when: occ_already_installed.stdout == '1'
+  shell: occ config:system:set trusted_domains {{ item.id }} --value="{{ item.hostname }}"
+  with_items: "{{ owncloud_trusted_domains }}"
 
 - name: Enable cron job mode
   shell: occ background:cron

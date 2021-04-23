@@ -34,12 +34,12 @@ Alias /owncloud "{{ owncloud_document_root }}/"
   Options +FollowSymlinks
   AllowOverride All
 
- <IfModule mod_dav.c>
-  Dav off
- </IfModule>
+  <IfModule mod_dav.c>
+    Dav off
+  </IfModule>
 
- SetEnv HOME {{ owncloud_document_root }}
- SetEnv HTTP_HOME {{ owncloud_document_root }}
+  SetEnv HOME {{ owncloud_document_root }}
+  SetEnv HTTP_HOME {{ owncloud_document_root }}
 </Directory>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

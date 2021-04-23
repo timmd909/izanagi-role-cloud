@@ -6,3 +6,5 @@ owncloud_database_name: 'owncloud'
 
 owncloud_admin_user: admin
 owncloud_admin_pass: ''
+
+owncloud_trusted_domains: []
