@@ -4,11 +4,16 @@
     update_cache: yes
     state: latest
 
+- name: Check for owncloud already being installed
+  shell: occ | grep "ownCloud is not installed" | wc -l
+  register: occ_already_installed
+
 - name: Bootstrap owncloud database
   shell: >
     occ maintenance:install
-    --database-name {{ owncloud_database_name }}
-    --database-user {{ owncloud_database_user }}
-    --database-pass {{ owncloud_database_pass }}
-    --admin-user {{ owncloud_admin_user }}
-    --admin-pass {{ owncloud_admin_pass }}
+    --database-name "{{ owncloud_database_name }}"
+    --database-user "{{ owncloud_database_user }}"
+    --database-pass "{{ owncloud_database_pass }}"
+    --admin-user "{{ owncloud_admin_user }}"
+    --admin-pass "{{ owncloud_admin_pass }}"
+  when: occ_already_installed.stdout == '1'
