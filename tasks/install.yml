@@ -53,3 +53,13 @@
     recurse: yes
     owner: www-data
     group: www-data
+
+- name: Install LetsEncrypt
+  apt:
+    state: latest
+    name:
+      - certbot
+      - python3-certbot-apache
+
+- name: Update LetsEncrypt cert
+  shell: certbot -m "{{ owncloud_letsencrypt_email }}" --agree-tos -n certonly --apache --domains "{{ owncloud_external_hostname }}"
