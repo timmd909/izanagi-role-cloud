@@ -1,14 +1,60 @@
 
+# See also https://docs.nextcloud.com/server/latest/admin_manual/installation/php_configuration.html
+# for why a lot of this is here
 - name: Install necessary packages
   apt:
     name:
       - bzip2
       - coreutils
       - curl
+      - ffmpeg
       - inetutils-ping
       - jq
+      - libreoffice-base-core
+      - libreoffice-calc
+      - libreoffice-common
+      - libreoffice-core
+      - libreoffice-draw
+      - libreoffice-gnome
+      - libreoffice-gtk3
+      - libreoffice-help-common
+      - libreoffice-help-en-gb
+      - libreoffice-help-en-us
+      - libreoffice-help-ja
+      - libreoffice-help-zh-cn
+      - libreoffice-help-zh-tw
+      - libreoffice-impress
+      - libreoffice-l10n-en-gb
+      - libreoffice-l10n-en-za
+      - libreoffice-l10n-ja
+      - libreoffice-l10n-zh-cn
+      - libreoffice-l10n-zh-tw
+      - libreoffice-math
+      - libreoffice-style-colibre
+      - libreoffice-style-elementary
+      - libreoffice-style-yaru
+      - libreoffice-writer
+      - mariadb-client
+      - mariadb-server
       - redis-server
       - rsync
       - smbclient
       - ssh
     state: latest
+
+- name: Install PHP + Packages
+  apt:
+    name:
+      - php7.4
+      - php7.4-apcu
+      - php7.4-bcmath
+      - php7.4-curl
+      - php7.4-dom
+      - php7.4-gd
+      - php7.4-imagick
+      - php7.4-intl
+      - php7.4-json
+      - php7.4-mbstring
+      - php7.4-memcache
+      - php7.4-xml
+      - php7.4-zip
